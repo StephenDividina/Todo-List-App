@@ -21,17 +21,20 @@ public class Todo {
     @ManyToOne
     private User user;
 
+    @Version
+    private Integer version;
+
     public Todo() {
     }
 
-    public Todo(String name, String description, Date date, Integer userId) {
+    public Todo(String name, String description, Integer version, Date date, Integer userId) {
         this.name = name;
         this.description = description;
+        this.version = version;
         this.date = date;
         this.user = new User(userId, "", "");
 
     }
-
 
     public int getId() {
         return id;
@@ -55,6 +58,14 @@ public class Todo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public Date getDate() {

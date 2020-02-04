@@ -57,7 +57,13 @@ public class UserController {
     @GetMapping("/user/todo/date")
     public List<Todo> getAllByDate(){
         Integer userId = user.getId();
-        return todoLogic.getAllByDate();
+        return todoLogic.getAllByDate(userId);
+    }
+
+    @GetMapping("/user/todo/name")
+    public List<Todo> getAllByName(){
+        Integer userId = user.getId();
+        return todoLogic.getAllByName(userId);
     }
 
     @PostMapping("/user/todo")
@@ -75,17 +81,27 @@ public class UserController {
         return msg;
     }
 
-    @PostMapping("/user/todo/{id}")
-    public Todo updateTodo(@RequestBody Todo todo, @PathVariable Integer id){
+    @PostMapping("/user/todo/{id}/{vid}")
+    public Todo updateTodo(@RequestBody Todo todo, @PathVariable Integer id, @PathVariable Integer vid){
         Integer userId = user.getId();
         todo.setUser(new User(userId, "", ""));
-        return todoLogic.updateTodo(id, todo);
+        return todoLogic.updateTodo(userId, id, vid ,todo);
+//        if (todoLogic.updateTodo(userId, id, vid, todo) == true){
+//            return "Update successfully";
+//        }else{
+//            return "Cannot find value of the Id";
+//        }
+
     }
 
     @DeleteMapping("/user/todo/{id}")
     public String deleteTodo(@PathVariable Integer id){
-        todoLogic.deleteTodo(id);
-        return "Delete successfully";
+        Integer userId = user.getId();
+        if(todoLogic.deleteTodo(userId, id) == true){
+            return "Delete successfully";
+        }else{
+            return "Cannot find value of the Id";
+        }
     }
 
 }
