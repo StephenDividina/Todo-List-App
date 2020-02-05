@@ -2,9 +2,9 @@ package com.stephen.todo;
 
 
 import com.stephen.user.User;
-import com.stephen.user.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -36,18 +36,13 @@ public class TodoController {
     }
 
     @PostMapping("/add")
-    public String addTodo(@RequestBody Todo todo) {
-        String msg;
-        try {
-            Integer userId = user.getId();
-            todo.setUser(new User(userId, "", ""));
-            todoLogic.addTodo(todo);
-            msg = "Saved successfully";
+    public Todo addTodo(@RequestBody Todo todo) throws Exception {
+        if(user==null){
+            throw new Exception("Please login.");
         }
-        catch (NullPointerException e){
-            msg = "Please Login!";
-        }
-        return msg;
+        Integer userId = user.getId();
+        todo.setUser(new User(userId, "", ""));
+        return todoLogic.addTodo(todo);
     }
 
     @PostMapping("/update")
@@ -57,13 +52,9 @@ public class TodoController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteTodo(@PathVariable Integer id){
+    public void deleteTodo(@PathVariable Integer id) throws Exception {
         Integer userId = user.getId();
-        if(todoLogic.deleteTodo(userId, id) == true){
-            return "Delete successfully";
-        }else{
-            return "Cannot find value of the Id";
-        }
+        todoLogic.deleteTodo(userId, id);
     }
 
     public static void setUser(User user) {

@@ -2,6 +2,7 @@ package com.stephen.user;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,16 +16,19 @@ public class UserLogicImplement implements UserLogic {
 
 
     @Override
-    public String signUp(SignUp signUp) {
-        User user = new User();
-        BeanUtils.copyProperties(signUp, user);
-        userRepository.save(user);
-        return "Registered Successfully";
+    public User signUp(User user) throws Exception {
+        if(userRepository.findByUsername(user.getUsername())!=null){
+            throw new Exception("Username already exists!");
+        }
+        return userRepository.save(user);
     }
 
     @Override
     public User login(Login login) {
         User user = userRepository.findByUsername(login.getUsername());
-        return user;
+        if(user.getPassword().equals(login.getPassword())){
+            return user;
+        }
+        return null;
     }
 }

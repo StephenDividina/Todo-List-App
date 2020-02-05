@@ -3,10 +3,10 @@ package com.stephen.todo;
 import java.util.List;
 
 public interface TodoLogic {
-    void addTodo(Todo todo);
+    Todo addTodo(Todo todo);
     List<Todo> getAllTodo(Integer userId);
     Todo updateTodo(Todo todo);
-    Boolean deleteTodo(Integer userId, Integer id);
+    void deleteTodo(Integer userId, Integer id) throws Exception;
     List<Todo> getAllByDate(Integer userId);
     List<Todo> getAllByName(Integer userId);
 

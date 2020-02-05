@@ -1,6 +1,6 @@
 package com.stephen.user;
 
 public interface UserLogic {
-    String signUp(SignUp signUp);
+    User signUp(User user) throws Exception;
     User login(Login login);
 }

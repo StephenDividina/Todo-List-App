@@ -22,7 +22,7 @@ public class Todo {
     private User user;
 
     @Version
-    private Integer version;
+    private int version;
 
     public Todo() {
     }

@@ -1,13 +1,9 @@
 package com.stephen.user;
 
-import com.stephen.todo.Todo;
 import com.stephen.todo.TodoController;
-import com.stephen.todo.TodoLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/rest/user")
@@ -19,12 +15,9 @@ public class UserController {
     private UserLogic userLogic;
 
     @PostMapping("/signup")
-    public String register(@RequestBody SignUp signUp) {
-        try {
-            return userLogic.signUp(signUp);
-        }catch (DataIntegrityViolationException e){
-            return "Username Already Exist!";
-        }
+    public User register(@RequestBody User user) throws Exception {
+        return userLogic.signUp(user);
+
 
     }
 
