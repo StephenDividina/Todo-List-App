@@ -47,9 +47,7 @@ public class TodoLogicImplement implements TodoLogic{
     @Override
     public Todo updateTodo(Todo todo) {
         if(!todoRepository.findByUserIdAndId(todo.getUser().getId(), todo.getId()).isEmpty()) {
-            Todo todo1 = todoRepository.findById(todo.getId()).get();
-            todo1 = todo;
-            return todoRepository.save(todo1);
+            return todoRepository.save(todo);
         }
         return null;
     }

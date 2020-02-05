@@ -16,23 +16,15 @@ public class UserLogicImplement implements UserLogic {
 
     @Override
     public String signUp(SignUp signUp) {
-
         User user = new User();
         BeanUtils.copyProperties(signUp, user);
         userRepository.save(user);
-
         return "Registered Successfully";
     }
 
     @Override
     public User login(Login login) {
         User user = userRepository.findByUsername(login.getUsername());
-//        if (user == null){
-//            return null;
-//        }
-//        if (!user.getPassword().equals(login.getPassword())) {
-//            return null;
-//        }
         return user;
     }
 }
