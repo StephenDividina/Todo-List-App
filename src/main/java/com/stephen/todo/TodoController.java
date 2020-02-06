@@ -46,7 +46,7 @@ public class TodoController {
     }
 
     @PostMapping("/update")
-    public Todo updateTodo(@RequestBody Todo todo){
+    public Todo updateTodo(@RequestBody Todo todo) throws Exception {
         todo.setUser(user);
         return todoLogic.updateTodo(todo);
     }

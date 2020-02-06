@@ -32,11 +32,12 @@ public class TodoLogicImplement implements TodoLogic {
     }
 
     @Override
-    public Todo updateTodo(Todo todo) {
+    public Todo updateTodo(Todo todo) throws Exception {
         if (!todoRepository.findByUserIdAndId(todo.getUser().getId(), todo.getId()).isEmpty()) {
             return todoRepository.save(todo);
+        } else {
+            throw new Exception("User cannot update");
         }
-        return null;
     }
 
     @Override
