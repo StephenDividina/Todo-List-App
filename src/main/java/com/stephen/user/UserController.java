@@ -2,7 +2,6 @@ package com.stephen.user;
 
 import com.stephen.todo.TodoController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,8 +16,6 @@ public class UserController {
     @PostMapping("/signup")
     public User register(@RequestBody User user) throws Exception {
         return userLogic.signUp(user);
-
-
     }
 
     @PostMapping("/login")

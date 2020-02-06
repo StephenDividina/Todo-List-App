@@ -2,7 +2,6 @@ package com.stephen.todo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.stephen.user.User;
-
 import javax.persistence.*;
 import java.util.Date;
 

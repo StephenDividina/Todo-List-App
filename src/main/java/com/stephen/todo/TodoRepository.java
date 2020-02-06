@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TodoRepository extends JpaRepository<Todo, Integer> {
-    public List<Todo> findByUserId(Integer userId);
-    public List<Todo> findByUserIdOrderByDateAsc(Integer userId);
-    public List<Todo> findByUserIdOrderByNameAsc(Integer userId);
-    public List<Todo> findByUserIdAndId(Integer userId, Integer Id);
+    List<Todo> findByUserId(Integer userId);
+    List<Todo> findByUserIdOrderByDateAsc(Integer userId);
+    List<Todo> findByUserIdOrderByNameAsc(Integer userId);
+    Todo findByUserIdAndId(Integer userId, Integer Id);
 }

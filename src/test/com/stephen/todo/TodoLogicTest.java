@@ -97,16 +97,12 @@ public class TodoLogicTest {
         todo.setName("alarm");
         todo.setDescription("birthday");
         todo.setDate(new Date(2020, 02, 06));
-        todoRepository.save(todo);
+        todo = todoRepository.save(todo);
 
-        Todo todo1 = new Todo();
-        todo1.setUser(user);
-        todo1.setId(todo.getId());
-        todo1.setName("New Alarm");
-        todo1.setDescription("Cousin's Birthday");
-        todo1.setDate(new Date(2020, 02, 07));
-        todo1.setVersion(todo.getVersion());
-        todoLogic.updateTodo(todo1);
+        todo.setName("New Alarm");
+        todo.setDescription("Cousin's Birthday");
+        todo.setDate(new Date(2020, 02, 07));
+        todoLogic.updateTodo(todo);
 
         List<Todo> todoList = todoLogic.getAllTodo(user.getId());
 
@@ -115,36 +111,9 @@ public class TodoLogicTest {
         Assert.assertEquals(1, todoList.size());
         Assert.assertEquals(todo.getId(), todo2.getId());
         Assert.assertEquals(todo.getUser().getId(), todo2.getUser().getId());
-        Assert.assertNotEquals(todo.getName(), todo2.getName());
-        Assert.assertNotEquals(todo.getDescription(), todo2.getDescription());
-        Assert.assertNotEquals(todo.getDate(), todo1.getDate());
-    }
-
-    @Test(expected = Exception.class)
-    public void updateTodoWithNullPointer() throws Exception{
-        Todo todo = new Todo();
-        User user = new User();
-
-        user.setName("stephen");
-        user.setUsername("stephen");
-        user.setPassword("12345");
-        user = userRepository.save(user);
-
-        todo.setUser(user);
-        todo.setName("alarm");
-        todo.setDescription("birthday");
-        todo.setDate(new Date(2020, 02, 06));
-        todoRepository.save(todo);
-
-        Todo todo1 = new Todo();
-        todo1.setUser(user);
-        todo1.setId(2323);
-        todo1.setName("New Alarm");
-        todo1.setDescription("Cousin's Birthday");
-        todo1.setDate(new Date(2020, 02, 07));
-        todo1.setVersion(todo.getVersion());
-        todoLogic.updateTodo(todo1);
-
+        Assert.assertEquals(todo.getName(), todo2.getName());
+        Assert.assertEquals(todo.getDescription(), todo2.getDescription());
+        Assert.assertEquals(todo.getDate(), todo2.getDate());
     }
 
     @Test(expected = Exception.class)
@@ -194,65 +163,6 @@ public class TodoLogicTest {
 
         List<Todo> todoList2 = todoLogic.getAllTodo(user.getId());
         Assert.assertEquals(1, todoList2.size());
-    }
-
-    @Test
-    public void getAllByName() {
-        User user = new User();
-        user.setName("asd");
-        user.setPassword("Asd");
-        user.setUsername("zxc");
-        user = userRepository.save(user);
-
-        Todo todo1 = new Todo();
-        todo1.setUser(user);
-        todo1.setName("x");
-        todo1.setDescription("x");
-        todo1.setDate(new Date());
-        todoRepository.save(todo1);
-
-        Todo todo2 = new Todo();
-        todo2.setUser(user);
-        todo2.setName("a");
-        todo2.setDescription("a");
-        todo2.setDate(new Date());
-        todoRepository.save(todo2);
-
-        Todo todo3 = new Todo();
-        todo3.setUser(user);
-        todo3.setName("m");
-        todo3.setDescription("m");
-        todo3.setDate(new Date());
-        todoRepository.save(todo3);
-
-        Todo todo4 = new Todo();
-        todo4.setUser(user);
-        todo4.setName("c");
-        todo4.setDescription("c");
-        todo4.setDate(new Date());
-        todoRepository.save(todo4);
-
-        List<Todo> todoList = todoLogic.getAllByName(user.getId());
-
-        Todo temp1 = todoList.get(0);
-        Todo temp2 = todoList.get(1);
-        Todo temp3 = todoList.get(2);
-        Todo temp4 = todoList.get(3);
-
-        Assert.assertEquals(2, temp1.getId());
-        Assert.assertEquals("a", temp1.getName());
-
-        Assert.assertEquals(4, temp2.getId());
-        Assert.assertEquals("c", temp2.getName());
-
-        Assert.assertEquals(3, temp3.getId());
-        Assert.assertEquals("m", temp3.getName());
-
-        Assert.assertEquals(1, temp4.getId());
-        Assert.assertEquals("x", temp4.getName());
-
-        Assert.assertEquals(4, todoList.size());
-
     }
 
     @Test
@@ -323,4 +233,62 @@ public class TodoLogicTest {
 
     }
 
+    @Test
+    public void getAllByName() {
+        User user = new User();
+        user.setName("asd");
+        user.setPassword("Asd");
+        user.setUsername("zxc");
+        user = userRepository.save(user);
+
+        Todo todo1 = new Todo();
+        todo1.setUser(user);
+        todo1.setName("x");
+        todo1.setDescription("x");
+        todo1.setDate(new Date());
+        todoRepository.save(todo1);
+
+        Todo todo2 = new Todo();
+        todo2.setUser(user);
+        todo2.setName("a");
+        todo2.setDescription("a");
+        todo2.setDate(new Date());
+        todoRepository.save(todo2);
+
+        Todo todo3 = new Todo();
+        todo3.setUser(user);
+        todo3.setName("m");
+        todo3.setDescription("m");
+        todo3.setDate(new Date());
+        todoRepository.save(todo3);
+
+        Todo todo4 = new Todo();
+        todo4.setUser(user);
+        todo4.setName("c");
+        todo4.setDescription("c");
+        todo4.setDate(new Date());
+        todoRepository.save(todo4);
+
+        List<Todo> todoList = todoLogic.getAllByName(user.getId());
+
+        Todo temp1 = todoList.get(0);
+        Todo temp2 = todoList.get(1);
+        Todo temp3 = todoList.get(2);
+        Todo temp4 = todoList.get(3);
+
+        Assert.assertEquals(todo2.getId(), temp1.getId());
+        Assert.assertEquals("a", temp1.getName());
+
+        Assert.assertEquals(todo4.getId(), temp2.getId());
+        Assert.assertEquals("c", temp2.getName());
+
+        Assert.assertEquals(todo3.getId(), temp3.getId());
+        Assert.assertEquals("m", temp3.getName());
+
+        Assert.assertEquals(todo1.getId(), temp4.getId());
+        Assert.assertEquals("x", temp4.getName());
+
+        Assert.assertEquals(4, todoList.size());
+
+    }
 }

@@ -1,8 +1,6 @@
 package com.stephen.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.stephen.todo.Todo;
-
 import javax.persistence.*;
 
 @Entity

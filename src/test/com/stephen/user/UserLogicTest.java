@@ -24,7 +24,7 @@ public class UserLogicTest {
 
     @Before
     public void setUp() throws Exception {
-
+        userRepository.deleteAll();
     }
 
     @Test
