@@ -1,6 +1,5 @@
 package com.stephen.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
@@ -13,7 +12,6 @@ public class User {
     private String name;
     @Column(unique = true)
     private String username;
-    @JsonIgnore
     private String password;
 
     public User() {

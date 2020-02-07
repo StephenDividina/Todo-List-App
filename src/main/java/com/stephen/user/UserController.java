@@ -34,6 +34,7 @@ public class UserController {
     @PostMapping("/logout")
     public String logout(){
         user = null;
+        TodoController.setUser(user);
         return "Logout successfully";
     }
 
